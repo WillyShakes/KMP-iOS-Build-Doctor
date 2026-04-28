@@ -1,10 +1,10 @@
-package org.redesnac.ujumbe.plugin.engine
+package org.redesnac.wilfriedmbouenda.plugin.engine
 
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
-import org.redesnac.ujumbe.plugin.diagnostics.BuildDiagnosis
-import org.redesnac.ujumbe.plugin.diagnostics.ProjectAnalyzer
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.BuildDiagnosis
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.ProjectAnalyzer
 
 @Service(Service.Level.PROJECT)
 class DiagnosticEngine(private val project: Project) {

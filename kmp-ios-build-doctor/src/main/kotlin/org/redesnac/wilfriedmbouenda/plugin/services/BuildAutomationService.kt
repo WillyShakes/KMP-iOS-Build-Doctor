@@ -1,4 +1,4 @@
-package org.redesnac.ujumbe.plugin.services
+package org.redesnac.wilfriedmbouenda.plugin.services
 
 import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.GeneralCommandLine
@@ -10,7 +10,7 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
-import org.redesnac.ujumbe.plugin.engine.BuildAction
+import org.redesnac.wilfriedmbouenda.plugin.engine.BuildAction
 import java.io.File
 import java.nio.file.Path
 

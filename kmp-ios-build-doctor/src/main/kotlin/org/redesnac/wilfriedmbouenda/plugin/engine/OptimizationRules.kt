@@ -1,8 +1,8 @@
-package org.redesnac.ujumbe.plugin.engine
+package org.redesnac.wilfriedmbouenda.plugin.engine
 
-import org.redesnac.ujumbe.plugin.diagnostics.BuildDiagnosis
-import org.redesnac.ujumbe.plugin.diagnostics.DiagnosticSeverity
-import org.redesnac.ujumbe.plugin.diagnostics.ProjectDiagnosticReport
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.BuildDiagnosis
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.DiagnosticSeverity
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.ProjectDiagnosticReport
 
 object OptimizationRules {
     fun recommend(report: ProjectDiagnosticReport): BuildDiagnosis {

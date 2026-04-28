@@ -1,10 +1,10 @@
-package org.redesnac.ujumbe.plugin.actions
+package org.redesnac.wilfriedmbouenda.plugin.actions
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.application.ApplicationManager
-import org.redesnac.ujumbe.plugin.engine.DiagnosticEngine
-import org.redesnac.ujumbe.plugin.services.BuildAutomationService
+import org.redesnac.wilfriedmbouenda.plugin.engine.DiagnosticEngine
+import org.redesnac.wilfriedmbouenda.plugin.services.BuildAutomationService
 
 class BuildIOSFastAction : AnAction() {
     override fun actionPerformed(event: AnActionEvent) {

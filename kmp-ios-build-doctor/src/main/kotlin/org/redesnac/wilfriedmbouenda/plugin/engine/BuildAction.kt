@@ -1,4 +1,4 @@
-package org.redesnac.ujumbe.plugin.engine
+package org.redesnac.wilfriedmbouenda.plugin.engine
 
 enum class BuildAction(
     val title: String,

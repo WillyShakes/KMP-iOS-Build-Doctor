@@ -160,7 +160,7 @@ Before publishing, update these values in `gradle.properties`:
 ```properties
 pluginVersion=0.1.0
 pluginChangeNotes=Initial preview release with Kotlin Multiplatform iOS project diagnostics.
-pluginVendor=Ujumbe Contributors
+pluginVendor=wilfriedmbouenda Contributors
 pluginVendorUrl=https://github.com/WillyShakes/KMP-iOS-Build-Doctor
 ```
 
@@ -200,7 +200,7 @@ Use JetBrains Marketplace's **manual review** flow for the first public release.
 
 ```text
 kmp-ios-build-doctor/
-  src/main/kotlin/org/redesnac/ujumbe/plugin/
+  src/main/kotlin/org/redesnac/wilfriedmbouenda/plugin/
     actions/       IDE menu actions
     diagnostics/   Gradle, KMP, Konan, and Xcode analyzers
     engine/        recommendation rules

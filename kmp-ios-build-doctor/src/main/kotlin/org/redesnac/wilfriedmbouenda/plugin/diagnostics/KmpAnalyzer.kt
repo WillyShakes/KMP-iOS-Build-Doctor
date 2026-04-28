@@ -1,6 +1,6 @@
-package org.redesnac.ujumbe.plugin.diagnostics
+package org.redesnac.wilfriedmbouenda.plugin.diagnostics
 
-import org.redesnac.ujumbe.plugin.engine.BuildAction
+import org.redesnac.wilfriedmbouenda.plugin.engine.BuildAction
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.exists

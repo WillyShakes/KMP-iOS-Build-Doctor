@@ -4,6 +4,6 @@ plugins {
 }
 
 allprojects {
-    group = findProperty('pluginGroup') ?: 'org.redesnac.ujumbe'
+    group = findProperty('pluginGroup') ?: 'org.redesnac.wilfriedmbouenda'
     version = findProperty('pluginVersion') ?: '0.1.0'
 }

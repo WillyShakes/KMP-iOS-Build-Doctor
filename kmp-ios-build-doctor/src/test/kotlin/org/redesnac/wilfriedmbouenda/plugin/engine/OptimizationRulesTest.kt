@@ -1,10 +1,10 @@
-package org.redesnac.ujumbe.plugin.engine
+package org.redesnac.wilfriedmbouenda.plugin.engine
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import org.redesnac.ujumbe.plugin.diagnostics.DiagnosticSeverity
-import org.redesnac.ujumbe.plugin.diagnostics.DiagnosticSignal
-import org.redesnac.ujumbe.plugin.diagnostics.ProjectDiagnosticReport
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.DiagnosticSeverity
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.DiagnosticSignal
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.ProjectDiagnosticReport
 
 class OptimizationRulesTest {
     @Test

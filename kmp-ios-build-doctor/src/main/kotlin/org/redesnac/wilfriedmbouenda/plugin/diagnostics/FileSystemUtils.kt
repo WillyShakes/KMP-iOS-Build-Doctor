@@ -1,4 +1,4 @@
-package org.redesnac.ujumbe.plugin.diagnostics
+package org.redesnac.wilfriedmbouenda.plugin.diagnostics
 
 import java.nio.file.Files
 import java.nio.file.Path

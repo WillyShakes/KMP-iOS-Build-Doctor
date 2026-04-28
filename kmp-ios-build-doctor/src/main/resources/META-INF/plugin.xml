@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>org.redesnac.ujumbe.kmp-ios-build-doctor</id>
+    <id>org.redesnac.wilfriedmbouenda.kmp-ios-build-doctor</id>
     <name>KMP iOS Build Doctor</name>
-    <vendor email="opensource@redesnac.org" url="https://github.com/redesnac/kmp-ios-build-doctor">Ujumbe Contributors</vendor>
+    <vendor email="opensource@redesnac.org" url="https://github.com/redesnac/kmp-ios-build-doctor">wilfriedmbouenda Contributors</vendor>
 
     <description>
         Diagnoses Kotlin Multiplatform iOS build setup issues directly from Android Studio and IntelliJ IDEA.
@@ -15,15 +15,15 @@
         <toolWindow
             id="KMP iOS Doctor"
             anchor="right"
-            factoryClass="org.redesnac.ujumbe.plugin.ui.DoctorToolWindowFactory"
+            factoryClass="org.redesnac.wilfriedmbouenda.plugin.ui.DoctorToolWindowFactory"
             icon="/icons/doctor.svg"/>
-        <projectService serviceImplementation="org.redesnac.ujumbe.plugin.services.BuildAutomationService"/>
+        <projectService serviceImplementation="org.redesnac.wilfriedmbouenda.plugin.services.BuildAutomationService"/>
     </extensions>
 
     <actions>
         <action
             id="KmpIosBuildDoctor.FastBuild"
-            class="org.redesnac.ujumbe.plugin.actions.BuildIOSFastAction"
+            class="org.redesnac.wilfriedmbouenda.plugin.actions.BuildIOSFastAction"
             text="KMP iOS Doctor: Fast Build"
             description="Run the fastest currently recommended iOS build action">
             <add-to-group group-id="ToolsMenu" anchor="last"/>

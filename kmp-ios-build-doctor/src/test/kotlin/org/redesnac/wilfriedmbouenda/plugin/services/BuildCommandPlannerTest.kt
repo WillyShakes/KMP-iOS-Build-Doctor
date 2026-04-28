@@ -1,10 +1,10 @@
-package org.redesnac.ujumbe.plugin.services
+package org.redesnac.wilfriedmbouenda.plugin.services
 
 import kotlin.io.path.createFile
 import kotlin.io.path.createTempDirectory
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import org.redesnac.ujumbe.plugin.engine.BuildAction
+import org.redesnac.wilfriedmbouenda.plugin.engine.BuildAction
 
 class BuildCommandPlannerTest {
     @Test

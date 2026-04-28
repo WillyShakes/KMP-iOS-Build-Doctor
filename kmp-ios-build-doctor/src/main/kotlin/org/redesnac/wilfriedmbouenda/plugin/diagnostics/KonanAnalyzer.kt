@@ -1,9 +1,9 @@
-package org.redesnac.ujumbe.plugin.diagnostics
+package org.redesnac.wilfriedmbouenda.plugin.diagnostics
 
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
-import org.redesnac.ujumbe.plugin.engine.BuildAction
+import org.redesnac.wilfriedmbouenda.plugin.engine.BuildAction
 
 class KonanAnalyzer {
     fun analyze(homePath: Path): List<DiagnosticSignal> {
