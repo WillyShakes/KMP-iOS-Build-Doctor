@@ -3,6 +3,11 @@ plugins {
     id 'org.jetbrains.intellij.platform'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 group = providers.gradleProperty('pluginGroup').get()
 version = providers.gradleProperty('pluginVersion').get()
 
@@ -18,22 +23,11 @@ dependencies {
         androidStudio(
                 providers.gradleProperty('platformVersion').get()
         )
-        create(
-                providers.gradleProperty('platformType').get(),
-                providers.gradleProperty('platformVersion').get()
-        )
         bundledPlugin('com.intellij.java')
-        instrumentationTools()
-        pluginVerifier()
-        zipSigner()
-        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
     }
 
-    testImplementation "org.jetbrains.kotlin:kotlin-test"
-}
-
-kotlin {
-    jvmToolchain(17)
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testRuntimeOnly 'junit:junit:4.13.2'
 }
 
 intellijPlatform {
@@ -68,7 +62,24 @@ intellijPlatform {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = JavaVersion.VERSION_17.toString()
+    targetCompatibility = JavaVersion.VERSION_17.toString()
+}
+
 tasks {
+    compileKotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
+    }
+
+    compileTestKotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
+    }
+
     patchPluginXml {
         sinceBuild = providers.gradleProperty('pluginSinceBuild')
         untilBuild = provider { null }

@@ -59,9 +59,7 @@ private class DoctorPanel(private val project: Project) {
     private val refreshButton = JButton("Refresh")
     private var latestDiagnosis: BuildDiagnosis? = null
 
-    private val timer = Timer(30_000) { refresh() }.apply {
-        repeats = true
-    }
+    private val timer = Timer(30_000) { refresh() }
 
     init {
         val buttonPanel = JPanel(FlowLayout(FlowLayout.LEFT, 8, 0)).apply {

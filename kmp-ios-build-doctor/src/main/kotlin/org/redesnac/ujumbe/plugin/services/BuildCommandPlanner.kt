@@ -14,13 +14,13 @@ object BuildCommandPlanner {
             BuildAction.CLEAN_GRADLE -> gradleCommand + "clean"
             BuildAction.RESTART_GRADLE -> gradleCommand + "--stop"
             BuildAction.CLEAR_KONAN_CACHE -> listOf("rm", "-rf", home.resolve(".konan/cache").toString())
-            BuildAction.CLEAR_DERIVED_DATA -> listOf("sh", "-c", "rm -rf \"$HOME/Library/Developer/Xcode/DerivedData\"/*")
+            BuildAction.CLEAR_DERIVED_DATA -> listOf("sh", "-c", "rm -rf \"\$HOME/Library/Developer/Xcode/DerivedData\"/*")
             BuildAction.FULL_REBUILD -> listOf(
                 "sh",
                 "-c",
                 "${gradleCommand.joinToString(" ")} --stop && " +
                     "${gradleCommand.joinToString(" ")} clean && " +
-                    "rm -rf \"$HOME/.konan/cache\" \"$HOME/Library/Developer/Xcode/DerivedData\"/* && " +
+                    "rm -rf \"\$HOME/.konan/cache\" \"\$HOME/Library/Developer/Xcode/DerivedData\"/* && " +
                     "${gradleCommand.joinToString(" ")} assembleDebug && " +
                     "${gradleCommand.joinToString(" ")} $iosTaskPath"
             )
