@@ -1,7 +1,7 @@
 package org.redesnac.ujumbe.plugin.engine
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import org.redesnac.ujumbe.plugin.diagnostics.DiagnosticSeverity
 import org.redesnac.ujumbe.plugin.diagnostics.DiagnosticSignal
 import org.redesnac.ujumbe.plugin.diagnostics.ProjectDiagnosticReport

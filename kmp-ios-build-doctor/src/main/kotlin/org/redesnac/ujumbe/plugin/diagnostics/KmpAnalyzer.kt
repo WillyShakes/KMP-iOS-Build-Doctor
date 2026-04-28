@@ -28,7 +28,7 @@ class KmpAnalyzer {
             text.contains("org.jetbrains.kotlin.multiplatform") || text.contains("kotlin(\"multiplatform\")")
         }
         val sharedModule = resolveSharedModule(root, kmpFiles)
-        val iosTask = ":$sharedModule:linkDebugFrameworkIosSimulatorArm64"
+        val iosTask = resolveIosTask(root, sharedModule, kmpFiles)
         val signals = mutableListOf<DiagnosticSignal>()
 
         if (kmpFiles.isEmpty()) {
@@ -65,7 +65,7 @@ class KmpAnalyzer {
             )
         }
 
-        if (signals.none { it.id.startsWith("kmp.") || it.id == "android-artifacts-missing" }) {
+        if (kmpFiles.isNotEmpty() && signals.none { it.id.startsWith("kmp.") || it.id == "android-artifacts-missing" }) {
             signals += DiagnosticSignal(
                 id = "kmp.ready",
                 title = "KMP iOS target is ready",
@@ -92,6 +92,27 @@ class KmpAnalyzer {
                 }
                 .firstOrNull()
             ?: "shared"
+    }
+
+    private fun resolveIosTask(root: Path, sharedModule: String, kmpFiles: List<Path>): String {
+        val taskSuffix = kmpFiles
+            .map { FileSystemUtils.readTextSafely(it) }
+            .firstNotNullOfOrNull { text ->
+                when {
+                    Regex("""\biosSimulatorArm64\s*\(""").containsMatchIn(text) -> "linkDebugFrameworkIosSimulatorArm64"
+                    Regex("""\biosX64\s*\(""").containsMatchIn(text) -> "linkDebugFrameworkIosX64"
+                    Regex("""\biosArm64\s*\(""").containsMatchIn(text) -> "linkDebugFrameworkIosArm64"
+                    else -> null
+                }
+            }
+            ?: "linkDebugFrameworkIosSimulatorArm64"
+
+        val isRootModule = kmpFiles.any { it.parent == root }
+        return if (isRootModule && sharedModule == "shared" && !root.resolve(sharedModule).isDirectory()) {
+            ":$taskSuffix"
+        } else {
+            ":$sharedModule:$taskSuffix"
+        }
     }
 
     private companion object {

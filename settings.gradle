@@ -5,16 +5,22 @@ pluginManagement {
         mavenCentral()
     }
 }
+
+plugins {
+    id 'org.jetbrains.intellij.platform.settings' version '2.15.0'
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
         google()
-        maven { url 'https://jitpack.io' }
-        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
-        jcenter()
-        gradlePluginPortal()
+
+        intellijPlatform {
+            defaultRepositories()
+        }
     }
 }
+
 rootProject.name = "kmpIosBuildDoctor"
 include ':kmp-ios-build-doctor'

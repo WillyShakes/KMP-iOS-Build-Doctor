@@ -1,10 +1,12 @@
 <idea-plugin>
     <id>org.redesnac.ujumbe.kmp-ios-build-doctor</id>
     <name>KMP iOS Build Doctor</name>
-    <vendor email="opensource@redesnac.org">Ujumbe Contributors</vendor>
+    <vendor email="opensource@redesnac.org" url="https://github.com/redesnac/kmp-ios-build-doctor">Ujumbe Contributors</vendor>
 
     <description>
-        Continuously analyzes Kotlin Multiplatform projects and recommends the fastest safe path to a working iOS build.
+        Diagnoses Kotlin Multiplatform iOS build setup issues directly from Android Studio and IntelliJ IDEA.
+        The plugin inspects Gradle, KMP targets, Kotlin/Native cache, and Xcode DerivedData signals, then recommends
+        the safest next action for a working iOS build.
     </description>
 
     <depends>com.intellij.modules.platform</depends>

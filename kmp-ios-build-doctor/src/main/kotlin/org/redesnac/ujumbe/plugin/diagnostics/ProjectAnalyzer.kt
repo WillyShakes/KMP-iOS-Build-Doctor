@@ -11,6 +11,10 @@ class ProjectAnalyzer(
 ) {
     fun analyze(project: Project): ProjectDiagnosticReport {
         val root = project.basePath?.let { Path.of(it) }
+        return analyze(root, Path.of(System.getProperty("user.home")))
+    }
+
+    fun analyze(root: Path?, homePath: Path): ProjectDiagnosticReport {
         val homePath = Path.of(System.getProperty("user.home"))
         val kmpAnalysis = kmpAnalyzer.analyze(root)
         val signals = buildList {

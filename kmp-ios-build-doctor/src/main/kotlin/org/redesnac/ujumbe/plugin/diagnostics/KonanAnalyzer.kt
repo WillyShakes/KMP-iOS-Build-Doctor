@@ -1,6 +1,5 @@
 package org.redesnac.ujumbe.plugin.diagnostics
 
-import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
@@ -22,11 +21,11 @@ class KonanAnalyzer {
 
         val cacheSize = FileSystemUtils.directorySizeBytes(cachePath)
         val corruptedMarkers = findCorruptionMarkers(konanPath)
-        val hasPartialDownloads = Files.walk(konanPath, 3).use { paths ->
-            paths.anyMatch { path ->
-                Files.isRegularFile(path) && (path.fileName.toString().endsWith(".part") || path.fileName.toString().endsWith(".tmp"))
+        val hasPartialDownloads = FileSystemUtils.walk(konanPath, maxDepth = 3)
+            .any { path ->
+                path.toFile().isFile &&
+                    (path.fileName.toString().endsWith(".part") || path.fileName.toString().endsWith(".tmp"))
             }
-        }
 
         return listOf(when {
             corruptedMarkers.isNotEmpty() -> DiagnosticSignal(
@@ -61,16 +60,14 @@ class KonanAnalyzer {
     private fun findCorruptionMarkers(root: Path): List<Path> {
         if (!root.exists() || !root.isDirectory()) return emptyList()
 
-        return Files.walk(root, 4).use { paths ->
-            paths
-                .filter { Files.isRegularFile(it) }
-                .filter {
-                    val name = it.fileName.toString().lowercase()
-                    name.contains("corrupt") || name.endsWith(".failed")
-                }
-                .limit(5)
-                .toList()
-        }
+        return FileSystemUtils.walk(root, maxDepth = 4)
+            .filter { it.toFile().isFile }
+            .filter {
+                val name = it.fileName.toString().lowercase()
+                name.contains("corrupt") || name.endsWith(".failed")
+            }
+            .take(5)
+            .toList()
     }
 
     private companion object {

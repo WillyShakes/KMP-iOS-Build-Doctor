@@ -9,14 +9,30 @@ import com.intellij.execution.ui.ConsoleViewImpl
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
 import org.redesnac.ujumbe.plugin.engine.BuildAction
 import java.nio.file.Path
 
 @Service(Service.Level.PROJECT)
 class BuildAutomationService(private val project: Project) {
+    private val commandPlanner = BuildCommandPlanner()
+
     fun run(action: BuildAction, iosTaskPath: String, console: ConsoleViewImpl? = null) {
-        val basePath = project.basePath ?: return
-        val command = commandFor(action, iosTaskPath)
+        val basePath = project.basePath
+        if (basePath == null) {
+            console?.print("Cannot run KMP iOS Doctor action without a project directory.\n", ConsoleViewContentType.ERROR_OUTPUT)
+            return
+        }
+
+        val command = commandPlanner.commandFor(action, iosTaskPath, Path.of(basePath))
+        if (console == null) {
+            Messages.showInfoMessage(
+                project,
+                "KMP iOS Doctor will run:\n\n${command.joinToString(" ")}",
+                "KMP iOS Build Doctor"
+            )
+        }
+
         console?.print("> ${command.joinToString(" ")}\n", ConsoleViewContentType.SYSTEM_OUTPUT)
         try {
             val commandLine = GeneralCommandLine(command)
@@ -28,23 +44,6 @@ class BuildAutomationService(private val project: Project) {
             handler.startNotify()
         } catch (exception: ExecutionException) {
             console?.print("Failed to run action: ${exception.message}\n", ConsoleViewContentType.ERROR_OUTPUT)
-        }
-    }
-
-    private fun commandFor(action: BuildAction, iosTaskPath: String): List<String> {
-        val home = Path.of(System.getProperty("user.home"))
-        return when (action) {
-            BuildAction.BUILD_IOS -> listOf("./gradlew", iosTaskPath)
-            BuildAction.BUILD_ANDROID_FIRST -> listOf("./gradlew", "assembleDebug")
-            BuildAction.CLEAN_GRADLE -> listOf("./gradlew", "clean")
-            BuildAction.RESTART_GRADLE -> listOf("./gradlew", "--stop")
-            BuildAction.CLEAR_KONAN_CACHE -> listOf("rm", "-rf", home.resolve(".konan/cache").toString())
-            BuildAction.CLEAR_DERIVED_DATA -> listOf("sh", "-c", "rm -rf \"$HOME/Library/Developer/Xcode/DerivedData\"/*")
-            BuildAction.FULL_REBUILD -> listOf(
-                "sh",
-                "-c",
-                "./gradlew --stop && ./gradlew clean && rm -rf \"$HOME/.konan/cache\" \"$HOME/Library/Developer/Xcode/DerivedData\"/* && ./gradlew assembleDebug && ./gradlew $iosTaskPath"
-            )
         }
     }
 

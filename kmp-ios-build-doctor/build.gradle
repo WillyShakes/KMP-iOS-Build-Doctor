@@ -3,8 +3,8 @@ plugins {
     id 'org.jetbrains.intellij.platform'
 }
 
-group = 'org.redesnac.ujumbe'
-version = '0.1.0'
+group = providers.gradleProperty('pluginGroup').get()
+version = providers.gradleProperty('pluginVersion').get()
 
 repositories {
     mavenCentral()
@@ -13,28 +13,72 @@ repositories {
     }
 }
 
+dependencies {
+    intellijPlatform {
+        androidStudio(
+                providers.gradleProperty('platformVersion').get()
+        )
+        create(
+                providers.gradleProperty('platformType').get(),
+                providers.gradleProperty('platformVersion').get()
+        )
+        bundledPlugin('com.intellij.java')
+        instrumentationTools()
+        pluginVerifier()
+        zipSigner()
+        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
+    }
+
+    testImplementation "org.jetbrains.kotlin:kotlin-test"
+}
+
 kotlin {
     jvmToolchain(17)
 }
 
-dependencies {
-    intellijPlatform {
-        intellijIdeaCommunity('2024.2.4')
-        bundledPlugin('com.intellij.java')
-        bundledPlugin('org.jetbrains.android')
-    }
-    testImplementation 'junit:junit:4.13.2'
-}
-
 intellijPlatform {
     pluginConfiguration {
+        id = providers.gradleProperty('pluginId')
+        name = providers.gradleProperty('pluginName')
+        version = providers.gradleProperty('pluginVersion')
+        description = providers.gradleProperty('pluginDescription')
+
         ideaVersion {
-            sinceBuild = '242'
+            sinceBuild = providers.gradleProperty('pluginSinceBuild')
+            untilBuild = provider { null }
         }
+
+        vendor {
+            name = providers.gradleProperty('pluginVendor')
+            email = providers.gradleProperty('pluginVendorEmail')
+            url = providers.gradleProperty('pluginVendorUrl')
+        }
+
+        changeNotes = providers.gradleProperty('pluginChangeNotes')
     }
-    pluginVerification {
-        ides {
-            ide('AI', '2024.2.4')
-        }
+
+    publishing {
+        token = providers.environmentVariable('PUBLISH_TOKEN')
+    }
+
+    signing {
+        certificateChain = providers.environmentVariable('CERTIFICATE_CHAIN')
+        privateKey = providers.environmentVariable('PRIVATE_KEY')
+        password = providers.environmentVariable('PRIVATE_KEY_PASSWORD')
+    }
+}
+
+tasks {
+    patchPluginXml {
+        sinceBuild = providers.gradleProperty('pluginSinceBuild')
+        untilBuild = provider { null }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    runIde {
+        jvmArgs = ['-Xmx2g']
     }
 }
