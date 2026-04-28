@@ -1,0 +1,30 @@
+<idea-plugin>
+    <id>org.redesnac.ujumbe.kmp-ios-build-doctor</id>
+    <name>KMP iOS Build Doctor</name>
+    <vendor email="opensource@redesnac.org">Ujumbe Contributors</vendor>
+
+    <description>
+        Continuously analyzes Kotlin Multiplatform projects and recommends the fastest safe path to a working iOS build.
+    </description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow
+            id="KMP iOS Doctor"
+            anchor="right"
+            factoryClass="org.redesnac.ujumbe.plugin.ui.DoctorToolWindowFactory"
+            icon="/icons/doctor.svg"/>
+        <projectService serviceImplementation="org.redesnac.ujumbe.plugin.services.BuildAutomationService"/>
+    </extensions>
+
+    <actions>
+        <action
+            id="KmpIosBuildDoctor.FastBuild"
+            class="org.redesnac.ujumbe.plugin.actions.BuildIOSFastAction"
+            text="KMP iOS Doctor: Fast Build"
+            description="Run the fastest currently recommended iOS build action">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>

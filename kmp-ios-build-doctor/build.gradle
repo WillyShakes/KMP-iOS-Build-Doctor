@@ -1,0 +1,40 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.intellij.platform'
+}
+
+group = 'org.redesnac.ujumbe'
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+dependencies {
+    intellijPlatform {
+        intellijIdeaCommunity('2024.2.4')
+        bundledPlugin('com.intellij.java')
+        bundledPlugin('org.jetbrains.android')
+    }
+    testImplementation 'junit:junit:4.13.2'
+}
+
+intellijPlatform {
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = '242'
+        }
+    }
+    pluginVerification {
+        ides {
+            ide('AI', '2024.2.4')
+        }
+    }
+}
