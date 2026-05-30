@@ -1,4 +1,4 @@
-package org.redesnac.ujumbe.plugin.diagnostics
+package org.redesnac.wilfriedmbouenda.plugin.diagnostics
 
 import java.nio.file.Files
 import java.nio.file.Path
@@ -7,7 +7,7 @@ import kotlin.io.path.exists
 import kotlin.streams.asSequence
 
 internal object FileSystemUtils {
-    fun directorySizeBytes(path: Path, maxDepth: Int = Int.MAX_VALUE): Long {
+    fun directorySizeBytes(path: Path, maxDepth: Int = 8): Long {
         if (!path.exists()) return 0L
 
         return Files.walk(path, maxDepth).use { stream ->
@@ -18,10 +18,10 @@ internal object FileSystemUtils {
         }
     }
 
-    fun newestModifiedTime(path: Path): FileTime? {
+    fun newestModifiedTime(path: Path, maxDepth: Int = 6): FileTime? {
         if (!path.exists()) return null
 
-        return Files.walk(path).use { stream ->
+        return Files.walk(path, maxDepth).use { stream ->
             stream
                 .asSequence()
                 .mapNotNull { runCatching { Files.getLastModifiedTime(it) }.getOrNull() }
@@ -29,10 +29,10 @@ internal object FileSystemUtils {
         }
     }
 
-    fun containsAnyFile(path: Path): Boolean {
+    fun containsAnyFile(path: Path, maxDepth: Int = 4): Boolean {
         if (!path.exists()) return false
 
-        return Files.walk(path).use { stream ->
+        return Files.walk(path, maxDepth).use { stream ->
             stream.asSequence().any { Files.isRegularFile(it) }
         }
     }

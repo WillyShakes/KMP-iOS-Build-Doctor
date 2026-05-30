@@ -1,6 +1,6 @@
-package org.redesnac.ujumbe.plugin.diagnostics
+package org.redesnac.wilfriedmbouenda.plugin.diagnostics
 
-import org.redesnac.ujumbe.plugin.engine.BuildAction
+import org.redesnac.wilfriedmbouenda.plugin.engine.BuildAction
 import java.nio.file.Path
 
 enum class DiagnosticSeverity {
@@ -37,3 +37,17 @@ data class KmpAnalysis(
     val iosTaskPath: String,
     val signals: List<DiagnosticSignal>,
 )
+
+data class ProjectEnvironment(
+    val projectPath: Path?,
+    val homePath: Path,
+) {
+    companion object {
+        fun from(project: com.intellij.openapi.project.Project): ProjectEnvironment {
+            return ProjectEnvironment(
+                projectPath = project.basePath?.let { Path.of(it) },
+                homePath = Path.of(System.getProperty("user.home")),
+            )
+        }
+    }
+}

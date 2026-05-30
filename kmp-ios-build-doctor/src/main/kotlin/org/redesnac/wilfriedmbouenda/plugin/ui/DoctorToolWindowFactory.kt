@@ -1,4 +1,4 @@
-package org.redesnac.ujumbe.plugin.ui
+package org.redesnac.wilfriedmbouenda.plugin.ui
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.service
@@ -9,10 +9,10 @@ import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.content.ContentFactory
-import org.redesnac.ujumbe.plugin.diagnostics.BuildDiagnosis
-import org.redesnac.ujumbe.plugin.diagnostics.DiagnosticSeverity
-import org.redesnac.ujumbe.plugin.engine.DiagnosticEngine
-import org.redesnac.ujumbe.plugin.services.BuildAutomationService
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.BuildDiagnosis
+import org.redesnac.wilfriedmbouenda.plugin.diagnostics.DiagnosticSeverity
+import org.redesnac.wilfriedmbouenda.plugin.engine.DiagnosticEngine
+import org.redesnac.wilfriedmbouenda.plugin.services.BuildAutomationService
 import java.awt.BorderLayout
 import java.awt.Font
 import java.awt.FlowLayout
@@ -59,9 +59,7 @@ private class DoctorPanel(private val project: Project) {
     private val refreshButton = JButton("Refresh")
     private var latestDiagnosis: BuildDiagnosis? = null
 
-    private val timer = Timer(30_000) { refresh() }.apply {
-        repeats = true
-    }
+    private val timer = Timer(30_000) { refresh() }
 
     init {
         val buttonPanel = JPanel(FlowLayout(FlowLayout.LEFT, 8, 0)).apply {

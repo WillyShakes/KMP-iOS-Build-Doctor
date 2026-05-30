@@ -1,0 +1,12 @@
+.gradle/
+.intellijPlatform/
+build/
+**/build/
+
+# IDE metadata
+.idea/
+*.iml
+
+# OS/editor noise
+.DS_Store
+*.swp
